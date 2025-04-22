@@ -19,6 +19,10 @@ from django.urls import path,include
 from  todo import views
 
 urlpatterns = [
-
+    path('admin/', admin.site.urls),
+    path('',views.index,name="index"),
+    path("agregar/",views.agregar,name="agregar"),
+    path("eliminar/<int:tarea_id>",views.eliminar,name="eliminar"),
+    path("editar/<int:tarea_id>",views.editar,name="editar"),
     path("", include("todo.urls")),
 ]

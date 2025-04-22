@@ -18,3 +18,20 @@ def agregar(request):
         form = TareaForm()
     context = {'form':form}
     return render(request,'todo/agregar.html',context)
+
+def eliminar(request,tarea_id):
+    tarea=Tarea.objects.get(id=tarea_id)
+    tarea.delete()
+    return redirect("index")
+
+def editar(request,tarea_id):
+    tarea=Tarea.objects.get(id=tarea_id)
+    if request.method == "POST":
+        form = TareaForm(request.POST,instance=tarea)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    else:
+        form = TareaForm(instance=tarea)
+    context = {'form':form}
+    return render(request,'todo/editar.html',context)
